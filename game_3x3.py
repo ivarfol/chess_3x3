@@ -6,6 +6,7 @@ Created on Wed May 10 12:09:07 2023
 """
 from functions import*
 import pickle
+import os
 
 wt = ''
 WNowherToGo = [False, False, False]
@@ -33,8 +34,14 @@ while not progress in {'1', '0'}:
     print("Accept(1)/Decline(0) Warning! Previous progress won't be saved.")
     progress = input()
 if progress == '1':
-    with open("biser1_list.pb",'rb') as file:
-        biser = pickle.load(file)
+    if os.path.exists(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'biser1_list.pb')):
+        with open("biser1_list.pb",'rb') as file:
+            biser = pickle.load(file)
+    else:
+        for k in range(43):
+            biser[k] = 10
+        with open("biser1_list.pb",'wb') as file:
+            pickle.dump(biser, file)
 else:
     for k in range(43):
         biser[k] = 10

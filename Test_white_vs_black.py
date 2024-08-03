@@ -7,6 +7,7 @@ Created on Thu May 18 15:30:02 2023
 
 from functions import*
 import pickle
+import os
 
 WNowherToGo = [False, False, False]
 ww = False
@@ -39,10 +40,22 @@ while not progress in {'1', '0'}:
     print("Accept(1)/Decline(0)")
     progress = input()
 if progress == '1':
-    with open("biser1_list.pb",'rb') as file:
-        biser = pickle.load(file)
-    with open("biserW1_list.pb",'rb') as file:
-        biserW = pickle.load(file)
+    if os.path.exists(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'biser1_list.pb')):
+        with open("biser1_list.pb",'rb') as file:
+            biser = pickle.load(file)
+    else:
+        for k in range(43):
+            biser[k] = 10
+        with open("biser1_list.pb",'wb') as file:
+            pickle.dump(biser, file)
+    if os.path.exists(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'biserW1_list.pb')):
+        with open("biserW1_list.pb",'rb') as file:
+            biserW = pickle.load(file)
+    else:
+        for kl in range(32):
+            biserW[kl] = 10
+        with open("biserW1_list.pb",'wb') as file:
+            pickle.dump(biserW, file)
 else:
     for k in range(43):
         biser[k] = 10
